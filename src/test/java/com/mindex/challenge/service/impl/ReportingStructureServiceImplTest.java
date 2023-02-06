@@ -71,8 +71,9 @@ public class ReportingStructureServiceImplTest {
     public void testReportingStructureServiceWithGoodInput() {
 
         // happy case with no issue
-        Map<String, Object> happyReportingStructure = new HashMap<>();
-        happyReportingStructure.put("John Doe",
+
+        Map<String, Object> happyReportingStructureMap = new HashMap<>();
+        happyReportingStructureMap.put("John Doe",
                 new HashMap<String, Object>() {{
                     put("Joe Shmo", new HashMap<String, Object>());
                     put("Ethan Garry",
@@ -80,8 +81,16 @@ public class ReportingStructureServiceImplTest {
                                 put("Larry Miami", new HashMap<String, Object>());
                             }});
                 }});
+        int happyNumOfReports = 3;
+
+        ReportingStructure happyReportingStructure = new ReportingStructure();
+        happyReportingStructure.setEmployee(createdHappyEmployee1);
+        happyReportingStructure.setReportingStructureMap(happyReportingStructureMap);
+        happyReportingStructure.setNumberOfReports(happyNumOfReports);
+
         ReportingStructure readReportingStructure = restTemplate.getForEntity(reportingStructureUrl, ReportingStructure.class, createdHappyEmployee1.getEmployeeId()).getBody();
-        assertEquals(readReportingStructure.getReportingStructureMap(), happyReportingStructure);
+        assert readReportingStructure != null;
+        assertReportingStructureEquals(happyReportingStructure, readReportingStructure);
     }
 
     @Test
@@ -91,5 +100,11 @@ public class ReportingStructureServiceImplTest {
         ReportingStructure readReportingStructure = restTemplate.getForEntity(reportingStructureUrl, ReportingStructure.class, createdSadEmployee1.getEmployeeId()).getBody();
         String firstKey = String.valueOf(readReportingStructure.getReportingStructureMap().entrySet().iterator().next());
         assertTrue(firstKey.contains("does not have a full name"));
+    }
+
+    private void assertReportingStructureEquals(ReportingStructure expected, ReportingStructure actual){
+        assertEquals(expected.getEmployee().getEmployeeId(), actual.getEmployee().getEmployeeId());
+        assertEquals(expected.getNumberOfReports(), actual.getNumberOfReports());
+        assertEquals(expected.getReportingStructureMap(), actual.getReportingStructureMap());
     }
 }
