@@ -34,10 +34,10 @@ test.
 
 Test Coverage (lines):
 
-ReportingStructureController: 100% </ br>
-ReportingStructure: 100% </ br>
-CircularDependencyException: 100% </ br>
-ReportingStructureServiceImpl: 76% (see Circular Dependency below)
+ReportingStructureController: 100% <br />
+ReportingStructure: 100% <br />
+CircularDependencyException: 100% <br />
+ReportingStructureServiceImpl: 90% (see Circular Dependency below)
 
 100% for all methods
 
@@ -81,8 +81,8 @@ of our project - further operations on Salary would become more strenuous.
 I used a java.time.LocalDate object for Date. I did however notice some warning messages:
 "o.s.data.convert.CustomConversions: Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation."
 
-I didn't deep dive on the issue, but we should investigate these further as it may be an extensibility
-warning.
+I tested the endpoint in POSTMAN and had no issues creating and reading a compensation object. I didn't deep dive further on the warnings,
+but we should note it and mark it as an item to investigate in the future.
 
 ### The Endpoint(s)
 
@@ -107,9 +107,9 @@ Used the same strategy as Employee type.
 
 Test Coverage (lines):
 
-CompensationController: 100% </ br>
-Compensation: 100% </ br>
-CompensationServiceImpl: 100% </ br> 
+CompensationController: 100% <br />
+Compensation: 100% <br />
+CompensationServiceImpl: 100% <br /> 
 
 100% for all methods
 
